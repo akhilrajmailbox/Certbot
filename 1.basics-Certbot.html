@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Getting Started - Let's Encrypt - Free SSL/TLS Certificates</title>
+    <meta name="description" content="Let’s&nbsp;Encrypt is a free, automated, and open certificate authority brought to you by the non-profit Internet Security Research Group (ISRG).
+">
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@letsencrypt">
+    
+    <meta name="twitter:title" content="Getting Started">
+    
+    
+    <meta name="twitter:url" content="https://letsencrypt.org//getting-started/">
+    
+    
+    <meta name="twitter:description" content="Let’s&nbsp;Encrypt is a free, automated, and open certificate authority brought to you by the non-profit Internet Security Research Group (ISRG).
+">
+    
+    <meta name="twitter:image:src" content="https://letsencrypt.org/images/le-logo-twitter.png">
+
+    <link rel="stylesheet" href="1.basics-Certbot_files/main.css">
+    <link rel="canonical" href="https://letsencrypt.org//getting-started/">
+
+    <link rel="alternate" href="https://letsencrypt.org/feed.xml" type="application/rss+xml" title="Let's Encrypt Blog Feed">
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <a id="skiplink" href="#main-content">Skip navigation links</a>
+
+  <div class="wrapper">
+
+    <div class="linux-foundation-link">
+      <a href="https://collabprojects.linuxfoundation.org/" target="_blank"><img src="1.basics-Certbot_files/linux-foundation.png" alt="Linux Foundation Collaborative Projects"></a>
+    </div>
+
+    <a class="site-title" href="https://letsencrypt.org/"><img src="1.basics-Certbot_files/letsencrypt-logo-horizontal.svg" alt="Let's Encrypt"></a>
+  
+
+
+    <span id="menuIcon">
+      <svg viewBox="0 0 18 15">
+        <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"></path>
+        <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"></path>
+        <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"></path>
+      </svg>
+    </span>
+
+    <nav class="site-nav" id="menu">
+      <div class="pure-menu pure-menu-horizontal custom-can-transform">
+          <ul class="pure-menu-list" role="menubar">
+              <li class="pure-menu-item" role="none">
+                <a href="https://letsencrypt.org/docs/" class="pure-menu-link" role="menuitem">Documentation</a>
+              </li>
+
+              <li class="pure-menu-item" role="none">
+                <a class="pure-menu-link" href="https://community.letsencrypt.org/" role="menuitem">Get Help</a>
+              </li>
+
+              <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover" role="none">
+                  <a href="https://letsencrypt.org/donate/" class="pure-menu-link" role="menuitem" aria-haspopup="true" aria-expanded="false">Donate</a>
+                  <ul class="pure-menu-children" role="menu" aria-label="Donate">
+                      <li class="pure-menu-item" role="none">
+                        <a href="https://letsencrypt.org/donate/" class="pure-menu-link" role="menuitem">Make a Donation</a>
+                      </li>
+                      <li class="pure-menu-item" role="none">
+                        <a href="https://letsencrypt.org/become-a-sponsor/" class="pure-menu-link" role="menuitem">Become a Sponsor</a>
+                      </li>
+                      <li class="pure-menu-item" role="none">
+                        <a href="https://letsencrypt.org/sponsors/" class="pure-menu-link" role="menuitem">Current Sponsors</a>
+                      </li>
+                      <li class="pure-menu-item" role="none">
+                        <a href="https://letsencrypt.org/getinvolved/" class="pure-menu-link" role="menuitem">Get Involved</a>
+                      </li>
+                  </ul>
+              </li>
+              <li class="pure-menu-item pure-menu-has-children pure-menu-allow-hover" role="none">
+                  <a href="https://letsencrypt.org/about/" class="pure-menu-link" role="menuitem" aria-haspopup="true" aria-expanded="false">About Us</a>
+                  <ul class="pure-menu-children" role="menu" aria-label="About Us">
+                      <li class="pure-menu-item" role="none">
+                        <a href="https://letsencrypt.org/about/" class="pure-menu-link" role="menuitem">Let's Encrypt</a>
+                      </li>
+                      <li class="pure-menu-item" role="none">
+                        <a href="https://letsencrypt.org/isrg/" class="pure-menu-link" role="menuitem">Internet Security Research Group (ISRG)</a>
+                      </li>
+                      <li class="pure-menu-item" role="none">
+                        <a href="https://letsencrypt.org/docs/faq/" class="pure-menu-link" role="menuitem">Frequently Asked Questions (FAQ)</a>
+                      </li>
+                      <li class="pure-menu-item" role="none">
+                        <a href="https://letsencrypt.org/repository/" class="pure-menu-link" role="menuitem">Policy and Legal Repository</a>
+                      </li>
+                      <li class="pure-menu-item" role="none">
+                        <a href="https://letsencrypt.status.io/" class="pure-menu-link" role="menuitem">Service Status</a>
+                      </li>
+                      <li class="pure-menu-item" role="none">
+                        <a href="https://letsencrypt.org/stats/" class="pure-menu-link" role="menuitem">Statistics</a>
+                      </li>
+                      <li class="pure-menu-item" role="none">
+                        <a class="pure-menu-link" href="https://letsencrypt.org/contact/" role="menuitem">Contact</a>
+                      </li>
+                      <li class="pure-menu-item" role="none">
+                        <a href="https://letsencrypt.org/jobs/" class="pure-menu-link" role="menuitem">Jobs</a>
+                      </li>
+                  </ul>
+              </li>
+          </ul>
+      </div>
+    </nav>
+
+  </div>
+
+</header>
+
+<div id="main-content"></div>
+
+
+    <div class="hero slim" style="background-image: url('/images/3.jpg');">
+  <div class="container">
+    <h1>Getting Started</h1>
+  </div>
+</div>
+
+<div class="page-content">
+  <div class="wrapper">
+    <p>To enable HTTPS on your website, you need to get a certificate (a type of file)
+from a Certificate Authority (CA). Let’s Encrypt is a CA. In order to get a
+certificate for your website’s domain from Let’s Encrypt, you have to demonstrate
+control over the domain. With Let’s Encrypt, you do this using software that uses
+the <a href="https://ietf-wg-acme.github.io/acme/">ACME protocol</a>, which typically runs
+on your web host.</p>
+
+<p>To figure out what method will work best for you, you will need to know whether
+you have <a href="https://en.wikipedia.org/wiki/Shell_account">shell access</a> (also known
+as SSH access) to your web host. If you manage your website entirely through a
+control panel like <a href="https://cpanel.com/">cPanel</a>, <a href="https://www.plesk.com/">Plesk</a>, or
+<a href="https://wordpress.org/">WordPress</a>, there’s a good chance you don’t have shell
+access. You can ask your hosting provider to be sure.</p>
+
+<h1 id="with-shell-access">With Shell Access</h1>
+
+<p>We recommend that most people with shell access use the
+<a href="https://certbot.eff.org/" title="Certbot">Certbot</a> ACME client. It can automate certificate issuance and installation with no downtime.
+It also has expert modes for people who don’t want autoconfiguration. It’s easy to use,
+works on many operating systems, and has great documentation. <a href="https://certbot.eff.org/" title="Certbot">Visit the
+Certbot site</a> to get customized instructions for your operating system and web server.</p>
+
+<p>If <a href="https://certbot.eff.org/" title="Certbot">Certbot</a> does not meet your needs, or you’d like to try something else, there are
+<a href="https://letsencrypt.org/docs/client-options/">many more ACME clients to choose from</a>.  Once you’ve chosen ACME client
+software, see the documentation for that client to proceed.</p>
+
+<p>If you’re experimenting with different ACME clients, use our
+<a href="https://letsencrypt.org/docs/staging-environment/">staging environment</a> to avoid hitting
+<a href="https://letsencrypt.org/docs/rate-limits/">rate limits</a>.</p>
+
+<h1 id="without-shell-access">Without Shell Access</h1>
+
+<p>The best way to use Let’s Encrypt without shell access is by using built-in support
+from your hosting provider. If your hosting provider offers Let’s Encrypt
+support, they can request a free certificate on your behalf, install it, and
+keep it up-to-date automatically. For some hosting providers, this is a
+configuration setting you need to turn on. Other providers automatically
+request and install certificates for all their customers.</p>
+
+<p><a href="https://community.letsencrypt.org/t/web-hosting-who-support-lets-encrypt/6920">Check our list of hosting providers</a>
+to see if yours is on it. If so, follow their documentation to set up your
+Let’s Encrypt certificate.</p>
+
+<p>If your hosting provider does not support Let’s Encrypt, you can contact them to
+request support. We do our best to make it very easy to add Let’s Encrypt
+support, and providers are often happy to hear suggestions from customers!</p>
+
+<p>If your hosting provider doesn’t want to integrate Let’s Encrypt, but does
+support uploading custom certificates, you can install Certbot on your own
+computer and use it in <a href="https://certbot.eff.org/docs/using.html#manual">manual mode</a>.
+In manual mode, you upload a specific file to your website to prove your
+control. Certbot will then retrieve a certificate that you can upload to your
+hosting provider. We don’t recommend this option because it is time-consuming
+and you will need to repeat it several times per year as your certificate
+expires. For most people it is better to request Let’s Encrypt support from your
+hosting provider, or switch providers if they do not plan to implement it.</p>
+
+<h1 id="getting-help">Getting Help</h1>
+
+<p>If you have questions about selecting an ACME client, or about using a
+ particular client, or anything else related to Let’s Encrypt, please 
+try our <a href="https://community.letsencrypt.org/">helpful community forums</a>.</p>
+
+  </div>
+
+</div>
+
+    
+    
+
+<div class="donate-footer">
+  <div class="wrapper text-center">
+    <h2>Support a more secure and privacy-respecting Web.</h2>
+    <div class="buttons">
+      <a class="accent" href="https://letsencrypt.org/donate/">Donate</a>
+    </div>
+  </div>
+</div>
+
+
+
+<footer class="site-footer">
+
+  <div class="wrapper">
+    <div class="footer-col-wrapper">
+      <div class="footer-col  footer-col-1">
+        <ul class="social-media-list">
+          
+          <li>
+            <a href="https://github.com/letsencrypt">
+              <span class="icon  icon--github" aria-hidden="true">
+                <svg viewBox="0 0 16 16">
+                  <path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"></path>
+                </svg>
+              </span>
+
+              <span class="username">letsencrypt</span>
+            </a>
+          </li>
+          
+
+          
+          <li>
+            <a href="https://twitter.com/letsencrypt">
+              <span class="icon  icon--twitter" aria-hidden="true">
+                <svg viewBox="0 0 16 16">
+                  <path fill="#828282" d="M15.969,3.058c-0.586,0.26-1.217,0.436-1.878,0.515c0.675-0.405,1.194-1.045,1.438-1.809
+                  c-0.632,0.375-1.332,0.647-2.076,0.793c-0.596-0.636-1.446-1.033-2.387-1.033c-1.806,0-3.27,1.464-3.27,3.27 c0,0.256,0.029,0.506,0.085,0.745C5.163,5.404,2.753,4.102,1.14,2.124C0.859,2.607,0.698,3.168,0.698,3.767 c0,1.134,0.577,2.135,1.455,2.722C1.616,6.472,1.112,6.325,0.671,6.08c0,0.014,0,0.027,0,0.041c0,1.584,1.127,2.906,2.623,3.206 C3.02,9.402,2.731,9.442,2.433,9.442c-0.211,0-0.416-0.021-0.615-0.059c0.416,1.299,1.624,2.245,3.055,2.271 c-1.119,0.877-2.529,1.4-4.061,1.4c-0.264,0-0.524-0.015-0.78-0.046c1.447,0.928,3.166,1.469,5.013,1.469 c6.015,0,9.304-4.983,9.304-9.304c0-0.142-0.003-0.283-0.009-0.423C14.976,4.29,15.531,3.714,15.969,3.058z"></path>
+                </svg>
+              </span>
+
+              <span class="username">letsencrypt</span>
+            </a>
+          </li>
+          
+        </ul>
+        View our <a href="https://letsencrypt.org/privacy/">privacy policy</a>.<br>
+        View our <a href="https://letsencrypt.org/trademarks/">trademark policy</a>.
+      </div>
+
+      <div class="footer-col  footer-col-2">
+        <p class="text">Let’s&nbsp;Encrypt is a free, automated, and 
+open certificate authority brought to you by the non-profit Internet 
+Security Research Group (ISRG).
+</p>
+        <p>1 Letterman Drive, Suite D4700, San Francisco, CA 94129</p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="linuxfoundation-collab-footer">
+    <div class="wrapper">
+      <p>Linux Foundation is a registered trademark of The Linux Foundation. Linux is a registered trademark of Linus Torvalds.</p>
+    </div>
+  </div>
+
+  <script src="1.basics-Certbot_files/main.js"></script>
+  <script src="1.basics-Certbot_files/ga.js"></script>
+  <script async="" src="1.basics-Certbot_files/analytics.js"></script>
+</footer>
+
+
+  
+
+
+</body></html>
