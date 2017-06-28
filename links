@@ -8,6 +8,12 @@ Installation & configuration >>
 https://certbot.eff.org/docs/using.html#certbot-commands
 https://certbot.eff.org/
 
+multiple domain >>
+https://community.letsencrypt.org/t/host-multiple-domains-with-a-single-certificate/20917
+
+adding extra domain to existing perm file>>
+https://certbot.eff.org/docs/using.html#re-creating-and-updating-existing-certificates
+https://community.letsencrypt.org/t/how-realy-works-the-expand-flag-correctly/21058/5
 
 
 video example >>
@@ -17,4 +23,6 @@ https://www.youtube.com/watch?v=m9aa7xqX67c
 
 gitLab example >>
 https://www.digitalocean.com/community/tutorials/how-to-secure-gitlab-with-let-s-encrypt-on-ubuntu-16-04
+
+
 
