@@ -26,3 +26,68 @@ https://www.digitalocean.com/community/tutorials/how-to-secure-gitlab-with-let-s
 
 
 
+
+
+
+wordpress example >>
+wp encript plugin ::
+https://wordpress.org/plugins/wp-encrypt/
+
+plugin error solution :: 
+https://community.bitnami.com/t/wp-encrypt-error-on-gc-bitnami-wordpress-mu/48067/3
+
+{
+ls -la /opt/bitnami/apps/wordpress/letsencrypt/live/
+
+sudo mkdir -p /opt/bitnami/apps/wordpress/letsencrypt/live 
+sudo chown -R bitnami:daemon /opt/bitnami/apps/wordpress/letsencrypt
+sudo find /opt/bitnami/apps/wordpress/letsencrypt -type d -exec chmod 0775 {} \;
+sudo find /opt/bitnami/apps/wordpress/letsencrypt -type f -exec chmod 0664 {} \;
+}
+
+https://planet.ogbongeblog.com/t/let-s-encrypt-registration-key-is-already-in-use-fixed/1986
+
+{
+
+
+Sign in to cPanel, go to “File Manager”, navigate to wp-encrypt plugin folder (wp-content > plugins)
+
+Navigate to inc > WPENC > Core folder. Right there, you will see CertificateManager.php
+
+Now, use code editor to open the CertificateManager.php
+
+Scroll to the “Retrieves information about a Let’s Encrypt account” section of the file and carefully comment out the code below :
+
+      if ( isset( $response['status'] ) && 200 !== absint( $response['status'] ) ) {
+      				return $this->parse_wp_error( $response );
+      			}
+
+
+
+}
+
+
+Really Simple SSL plugin ::
+https://wordpress.org/plugins/really-simple-ssl/
+
+reference ::
+https://mythemeshop.com/blog/lets-encrypt-free-ssl/
+http://www.wpbeginner.com/wp-tutorials/how-to-add-free-ssl-in-wordpress-with-lets-encrypt/
+
+
+
+cronjob if volume mounted in docker ::
+
+#!/bin/bash
+
+docker stop wordpress-server
+sleep 3
+certbot renew
+sleep 3
+rm -rf /registry-vol/wordpress/wordpress-server/apache/conf/bitnami/certs/server.*
+cp /etc/letsencrypt/live/domain.com/fullchain.pem /registry-vol/wordpress/wordpress-server/apache/conf/bitnami/certs/server.crt
+cp /etc/letsencrypt/live/domain.com/privkey.pem /registry-vol/wordpress/wordpress-server/apache/conf/bitnami/certs/server.key
+sleep 3
+docker start wordpress-server
+
+
